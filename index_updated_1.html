@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자기소개 포트폴리오 | BioNexus 지원자</title>
+  <meta name="description" content="BioNexus AI 면접을 위한 인터랙티브 자기소개 포트폴리오입니다. 생명과학 + LLM 엔지니어링 역량 쇼케이스." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS — BioNexus-accurate palette
+    ========================================================= */
+    :root {
+      /* Color */
+      --bg:           #F9FAFB;
+      --bg-white:     #FFFFFF;
+      --bg-dark:      #111827;
+      --bg-dark-card: #1F2937;
+      --text-1:       #111827;
+      --text-2:       #374151;
+      --text-3:       #6B7280;
+      --border:       #E5E7EB;
+      --border-dark:  rgba(255,255,255,.07);
+
+      /* Brand */
+      --primary:      #4B5563;   /* main CTA: dark-ish gray */
+      --primary-h:    #374151;   /* hover */
+      --accent:       #8BA1BD;   /* soft blue-gray */
+      --accent-deep:  #6B89A8;
+
+      /* Effects */
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,.09);
+      --shadow-accent: 0 4px 20px rgba(139,161,189,.3);
+      --radius:     0px;         /* BioNexus uses near-zero radius for CTAs */
+      --radius-card:12px;
+      --radius-tag: 4px;
+      --transition: all .22s cubic-bezier(.4,0,.2,1);
+      --font: 'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+    }
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text-1); overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+    /* =========================================================
+       PROGRESS BAR
+    ========================================================= */
+    #progress {
+      position: fixed; top: 0; left: 0; z-index: 300;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+      transition: width .1s linear;
+    }
+
+    /* =========================================================
+       NAVBAR
+    ========================================================= */
+    .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 200;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px) saturate(1.6);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .nav.scrolled { box-shadow: var(--shadow-sm); }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo {
+      width: 28px; height: 28px;
+      background: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo svg { width: 15px; height: 15px; fill: white; }
+    .nav-brand-name { font-size: 14px; font-weight: 700; color: var(--text-1); letter-spacing: -.2px; }
+    .nav-brand-sep { color: var(--border); margin: 0 4px; }
+    .nav-brand-sub { font-size: 13px; font-weight: 500; color: var(--text-3); }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-3);
+      padding: 6px 14px;
+      transition: var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-1);  }
+    .nav-cta {
+      background: var(--primary); color: #fff !important;
+      padding: 9px 20px !important; font-weight: 600 !important;
+      transition: var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--primary-h) !important; }
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px;
+      font-family: var(--font); font-size: 14px; font-weight: 600;
+      border: none; cursor: pointer; transition: var(--transition);
+      border-radius: var(--radius);
+    }
+    .btn-dark {
+      background: var(--primary); color: white;
+    }
+    .btn-dark:hover { background: var(--primary-h); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-ghost {
+      background: transparent; color: var(--text-1);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--text-3); transform: translateY(-1px); }
+    .btn-ghost-light {
+      background: transparent; color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .btn-ghost-light:hover { border-color: rgba(255,255,255,.5); color: white; }
+
+    /* =========================================================
+       LABELS / TAGS
+    ========================================================= */
+    .label {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase;
+      color: var(--accent-deep);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-tag);
+      background: var(--bg-white);
+      margin-bottom: 16px;
+    }
+    .label-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); display: inline-block; }
+    .label-light {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.12);
+      color: var(--accent);
+    }
+
+    /* =========================================================
+       HERO — Light mode with dark accent panel
+    ========================================================= */
+    .hero {
+      min-height: 100vh;
+      background: var(--bg-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle grid lines */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity: .5;
+    }
+
+    .hero-left {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 60px 80px 80px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 22px;
+    }
+    .hero-eyebrow-line { width: 24px; height: 1px; background: var(--border); }
+    .hero-title {
+      font-size: clamp(38px, 4.5vw, 60px);
+      font-weight: 900;
+      color: var(--text-1);
+      line-height: 1.12;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent-deep);
+    }
+    .hero-body {
+      font-size: 16px; font-weight: 400;
+      color: var(--text-3); line-height: 1.8;
+      max-width: 440px; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-scroll-hint {
+      position: absolute; bottom: 40px; left: 80px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 600; color: var(--text-3);
+      letter-spacing: .4px;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* Dark right panel */
+    .hero-right {
+      position: relative; z-index: 2;
+      background: var(--bg-dark);
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 60px;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(139,161,189,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,161,189,.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .hero-card {
+      position: relative; z-index: 2;
+      width: 100%;
+      max-width: 360px;
+    }
+    .hero-profile-row {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+      padding: 20px 24px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border-dark);
+    }
+    .hero-avatar {
+      width: 52px; height: 52px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900; color: white;
+    }
+    .hero-profile-info h3 { font-size: 16px; font-weight: 700; color: #F9FAFB; margin-bottom: 3px; }
+    .hero-profile-info p { font-size: 12px; color: rgba(249,250,251,.45); }
+    .hero-stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-dark);
+      border: 1px solid var(--border-dark);
+      margin-bottom: 20px;
+    }
+    .hero-stat {
+      background: var(--bg-dark);
+      padding: 18px 20px;
+    }
+    .hero-stat-val {
+      font-size: 26px; font-weight: 900;
+      color: var(--accent); line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat-lbl { font-size: 11px; font-weight: 600; color: rgba(249,250,251,.4); letter-spacing: .3px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .hero-tag {
+      padding: 5px 12px;
+      background: rgba(139,161,189,.1);
+      border: 1px solid rgba(139,161,189,.18);
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      letter-spacing: .3px;
+    }
+
+    /* =========================================================
+       MARQUEE STRIP
+    ========================================================= */
+    .strip {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      overflow: hidden;
+    }
+    .strip-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+    .strip-track:hover { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .strip-item {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0 32px;
+      font-size: 13px; font-weight: 600; color: var(--text-3);
+      border-right: 1px solid var(--border);
+    }
+    .strip-item-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    /* =========================================================
+       SECTIONS — COMMON
+    ========================================================= */
+    .section { padding: 96px 80px; }
+    .section-narrow { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 56px; }
+    .section-title { font-size: clamp(28px, 3vw, 40px); font-weight: 800; color: var(--text-1); letter-spacing: -1px; line-height: 1.2; margin-bottom: 12px; }
+    .section-title-light { color: #F9FAFB; }
+    .section-body { font-size: 15px; color: var(--text-3); line-height: 1.8; max-width: 520px; }
+    .section-body-light { color: rgba(249,250,251,.5); }
+    .section-white { background: var(--bg-white); }
+    .section-gray  { background: var(--bg); }
+    .section-dark  { background: var(--bg-dark); position: relative; overflow: hidden; }
+    .section-dark::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(139,161,189,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,161,189,.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .section-dark .section-narrow { position: relative; z-index: 2; }
+
+    /* =========================================================
+       ABOUT — GRID
+    ========================================================= */
+    .about-grid { display: grid; grid-template-columns: 380px 1fr; gap: 72px; align-items: start; }
+
+    /* Timeline */
+    .timeline { padding-left: 20px; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 5px; top: 10px; bottom: 0; width: 1px; background: var(--border); }
+    .tl-item {
+      position: relative; padding-left: 22px; margin-bottom: 36px;
+      opacity: 0; transform: translateX(-10px);
+      transition: opacity .5s, transform .5s;
+    }
+    .tl-item.in { opacity: 1; transform: translateX(0); }
+    .tl-item::before {
+      content: ''; position: absolute;
+      left: -15px; top: 7px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--bg-white);
+      border: 2px solid var(--accent);
+    }
+    .tl-item.active::before { background: var(--accent); }
+    .tl-period { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+    .tl-title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 2px; }
+    .tl-org { font-size: 13px; color: var(--text-3); margin-bottom: 8px; }
+    .tl-desc { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+
+    /* Story */
+    .story p { font-size: 15px; color: var(--text-2); line-height: 1.9; margin-bottom: 18px; }
+    .story p:last-child { margin-bottom: 0; }
+    .story strong { color: var(--text-1); font-weight: 700; }
+    .story-quote {
+      margin: 28px 0;
+      padding: 20px 28px;
+      border-left: 3px solid var(--accent);
+      background: var(--bg);
+      font-size: 16px; font-weight: 600; color: var(--text-1);
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       SKILLS GRID
+    ========================================================= */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .skill-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      padding: 28px;
+      transition: var(--transition);
+      opacity: 0; transform: translateY(12px);
+    }
+    .skill-card.in { opacity: 1; transform: translateY(0); }
+    .skill-card:hover { border-color: var(--accent); box-shadow: var(--shadow-accent); transform: translateY(-2px); }
+    .sk-icon {
+      width: 40px; height: 40px;
+      background: rgba(139,161,189,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 16px;
+    }
+    .skill-card h3 { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+    .skill-card p { font-size: 13px; color: var(--text-3); line-height: 1.7; margin-bottom: 16px; }
+    .pill-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill {
+      padding: 3px 10px;
+      background: rgba(107,137,168,.1);
+      border: 1px solid rgba(107,137,168,.18);
+      font-size: 11px; font-weight: 700; color: var(--accent-deep);
+    }
+
+    /* =========================================================
+       PROJECTS
+    ========================================================= */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .proj-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 28px;
+      transition: var(--transition);
+      opacity: 0; transform: translateY(12px);
+      cursor: default;
+    }
+    .proj-card.in { opacity: 1; transform: translateY(0); }
+    .proj-card:hover { background: var(--bg-white); border-color: var(--accent); box-shadow: var(--shadow-accent); transform: translateY(-2px); }
+    .proj-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+    .proj-tag { font-size: 11px; font-weight: 700; color: var(--accent-deep); text-transform: uppercase; letter-spacing: .4px; }
+    .proj-arrow { font-size: 16px; color: var(--accent); transition: transform .2s; }
+    .proj-card:hover .proj-arrow { transform: translate(3px, -3px); }
+    .proj-card h3 { font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 10px; line-height: 1.35; }
+    .proj-card p { font-size: 13px; color: var(--text-3); line-height: 1.75; margin-bottom: 18px; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tech {
+      padding: 4px 10px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      font-size: 11px; font-weight: 600; color: var(--text-3);
+    }
+
+    /* =========================================================
+       WHY BIONEXUS (dark section)
+    ========================================================= */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .why-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border-dark);
+      padding: 30px;
+      transition: var(--transition);
+      opacity: 0; transform: translateY(14px);
+    }
+    .why-card.in { opacity: 1; transform: translateY(0); }
+    .why-card:hover { background: rgba(139,161,189,.06); border-color: rgba(139,161,189,.3); transform: translateY(-2px); }
+    .why-num {
+      font-size: 48px; font-weight: 900;
+      color: rgba(255,255,255,.05);
+      line-height: 1; margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+    .why-card h3 { font-size: 15px; font-weight: 700; color: #F9FAFB; margin-bottom: 10px; }
+    .why-card p { font-size: 13px; color: rgba(249,250,251,.45); line-height: 1.75; }
+
+    /* =========================================================
+       PARTNER LOGOS
+    ========================================================= */
+    .logos-section { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 80px; }
+    .logos-label { font-size: 12px; font-weight: 700; color: var(--text-3); text-align: center; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 32px; }
+    .logos-grid { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .logo-chip {
+      padding: 10px 20px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      font-size: 13px; font-weight: 700; color: var(--text-3);
+      transition: var(--transition);
+    }
+    .logo-chip:hover { border-color: var(--accent); color: var(--text-2); }
+
+    /* =========================================================
+       CONTACT CTA
+    ========================================================= */
+    .contact-wrap {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .contact-wrap h2 { font-size: 32px; font-weight: 800; color: var(--text-1); letter-spacing: -1px; margin-bottom: 14px; }
+    .contact-wrap p { font-size: 16px; color: var(--text-3); line-height: 1.8; margin-bottom: 36px; }
+    .contact-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .contact-card-wrap {
+      position: relative;
+      padding: 72px 80px;
+      overflow: hidden;
+    }
+    .contact-card-wrap::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 300px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    footer {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      padding: 24px 80px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    footer p { font-size: 13px; color: var(--text-3); }
+    .footer-brand { display: flex; align-items: center; gap: 8px; }
+    .footer-brand-dot { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+    .footer-brand-dot img { width: 100%; height: 100%; }
+
+    /* =========================================================
+       FLOATING BUTTON
+    ========================================================= */
+    .fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 100;
+      width: 48px; height: 48px;
+      background: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 18px;
+      box-shadow: 0 4px 20px rgba(74,85,99,.4);
+      transition: var(--transition);
+      border: none; cursor: pointer;
+    }
+    .fab:hover { background: var(--primary-h); transform: scale(1.08); }
+
+    /* =========================================================
+       SCROLL-REVEAL TRANSITIONS (stagger via JS data-delay)
+    ========================================================= */
+    [data-reveal] { transition: opacity .5s ease, transform .5s ease; }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 1024px) {
+      .section { padding: 72px 40px; }
+      .hero-left, .hero-right { padding: 100px 40px 60px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 24px 40px; }
+      .logos-section { padding: 48px 40px; }
+    }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 100px 28px 60px; }
+      .hero-scroll-hint { left: 28px; }
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .section { padding: 64px 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+      .logos-section { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Progress bar ─────────────────────────── -->
+<div id="progress"></div>
+
+<!-- ─── Navbar ───────────────────────────────── -->
+<nav class="nav" id="navbar">
+  <a href="#hero" class="nav-brand">
+    <div class="nav-logo">
+      <img src="resources/bnl.svg" alt="BioNexus Logo" style="width: 24px; height: auto;">
+    </div>
+    <span class="nav-brand-name">BioNexus</span>
+    <span class="nav-brand-sep">|</span>
+    <span class="nav-brand-sub">지원자 포트폴리오</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about"    data-section="about">소개</a></li>
+    <li><a href="#skills"   data-section="skills">역량</a></li>
+    <li><a href="#projects" data-section="projects">프로젝트</a></li>
+    <li><a href="#why"      data-section="why">기여 계획</a></li>
+    <li><a href="#contact"  class="nav-cta">연락하기</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      BioNexus 면접 지원자 포트폴리오
+    </div>
+    <h1 class="hero-title">
+      바이오와 AI의<br/>
+      <em>교차점</em>에서<br/>
+      연구를 가속합니다
+    </h1>
+    <p class="hero-body">
+      서울대학교 생물정보학 박사(2026.02 졸업)로서, 감염병 예측 모델링·
+      정밀의료 멀티오믹스·마이크로바이옴 분석을 수행해왔습니다.
+      연구 현장에서 체감한 LLM의 구조적 한계를 토이 프로젝트로 직접 검증하며,
+      연구자에서 연구를 위한 개발자로 전환 중입니다.
+    </p>
+    <div class="hero-actions">
+      <a href="#about"    class="btn btn-dark">자기소개 보기 →</a>
+      <a href="#projects" class="btn btn-ghost">프로젝트 보기</a>
+    </div>
+    <div class="hero-scroll-hint">
+      ↓ &nbsp; 스크롤하여 더 보기
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-profile-row">
+        <div class="hero-avatar">KH</div>
+        <div class="hero-profile-info">
+          <h3>한결희 (Han Kyulhee)</h3>
+          <p>바이오인포매틱스 연구자 · 연구자에서 개발자로</p>
+        </div>
+      </div>
+      <div class="hero-stat-grid">
+        <div class="hero-stat">
+          <div class="hero-stat-val">SCI 7+</div>
+          <div class="hero-stat-lbl">제1·공동제1저자</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">Ph.D.</div>
+          <div class="hero-stat-lbl">서울대 2026.02</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">4년</div>
+          <div class="hero-stat-lbl">플랫폼 PM·연구원</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">BOA</div>
+          <div class="hero-stat-lbl">토이 프로젝트</div>
+        </div>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">Bioinformatics</span>
+        <span class="hero-tag">Epidemic Modeling</span>
+        <span class="hero-tag">Multi-Omics</span>
+        <span class="hero-tag">R / Python Analysis</span>
+        <span class="hero-tag">Research Automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Marquee Strip ────────────────────────── -->
+<div class="strip">
+  <div class="strip-track">
+    <span class="strip-item"><span class="strip-item-dot"></span>Epidemic Forecasting Analysis</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Multi-Omics Data Integration</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Bioinformatics Orchestration Agent</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Cancer Precision Medicine</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Differential Expression Analysis</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Agentic Workflow Automation</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Microbiome Biomarker Discovery</span>
+    <!-- duplicate for seamless loop -->
+    <span class="strip-item"><span class="strip-item-dot"></span>Epidemic Forecasting Analysis</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Multi-Omics Data Integration</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Bioinformatics Orchestration Agent</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Cancer Precision Medicine</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Differential Expression Analysis</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Agentic Workflow Automation</span>
+    <span class="strip-item"><span class="strip-item-dot"></span>Microbiome Biomarker Discovery</span>
+  </div>
+</div>
+
+<!-- ─── ABOUT ────────────────────────────────── -->
+<section class="section section-white" id="about">
+  <div class="section-narrow">
+    <div class="section-header">
+      <div class="label"><span class="label-dot"></span>About Me</div>
+      <h2 class="section-title">저는 이런 사람입니다</h2>
+      <p class="section-body">
+        생명과학과 AI가 만나는 교차점에서 실질적인 연구 가속 솔루션을 만들어왔습니다.
+      </p>
+    </div>
+    <div class="about-grid">
+      <!-- 타임라인 -->
+      <div class="timeline" id="timeline">
+        <div class="tl-item active">
+          <div class="tl-period">2022.09 – 2025.09</div>
+          <div class="tl-title">전문연구요원</div>
+          <div class="tl-org">서울대학교 자연과학대학</div>
+          <div class="tl-desc">생물정보학 연구 수행 및 감염병 예측·분석 플랫폼 운영 지원.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2021.06 – 2024.12</div>
+          <div class="tl-title">감염병 분석 플랫폼 개발 PM</div>
+          <div class="tl-org">서울대학교 생물정보학 연구실</div>
+          <div class="tl-desc">범부처 COVID-19 확산 예측 플랫폼 기획·운영. 예측모형 비교 설계, 대시보드 구축 총괄.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2019.09 – 2026.02</div>
+          <div class="tl-title">생물정보학 석박사 통합과정 졸업</div>
+          <div class="tl-org">서울대학교 협동과정 생물정보학</div>
+          <div class="tl-desc">정밀의료·마이크로바이옴·시계열 예측·단일세포 분석 연구 수행. SCI(E) 7편 제1/공동제1저자.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2015.03 – 2019.02</div>
+          <div class="tl-title">생명과학 학사 졸업</div>
+          <div class="tl-org">한동대학교 생명과학부</div>
+          <div class="tl-desc">분자생물학 및 생명과학 도메인 기초 역량 습득.</div>
+        </div>
+      </div>
+      <!-- 스토리 -->
+      <div class="story">
+        <p>
+          헬스케어·바이오 데이터를 분석하고, 예측모형 결과를 비교·검증해 구조화해온
+          <strong>생물정보학 연구자</strong>입니다.
+          정밀의료, 감염병 예측, 마이크로바이옴, 단일세포 분석까지
+          다양한 문제 유형에서 이질적 데이터를 비교 가능한 형태로 정리해왔습니다.
+        </p>
+        <div class="story-quote">
+          "모델 정확도보다 결과 차이의 원인을 추적하고, 협업 가능한 형태로 정리하는 것 — 연구실에서 쌓은 이 습관을 연구 협업형 AI로 확장하고 싶습니다."
+        </div>
+        <p>
+          연구 과정에서 LLM을 직접 사용하며 느낀 구조적 한계 — 모호한 질문에도 즉시 답하고, 연구 단계와 맞지 않는 산출물을 내놓는 것 — 를
+          출발점으로 <strong>BOA-Lite</strong>를 설계했습니다.
+          연구 질문을 받으면 먼저 "지금 어느 단계인지(문제 정의·계획·검증 진입)"를 추정하고,
+          그 단계에 맞는 문서를 자동 생성하는 구조입니다.
+          예를 들어 Framing 단계라면 연구 질문·범위·성공 기준을 정리한 초안 문서를,
+          Validation 단계라면 검증 진입 전 근거 수준과 리스크를 점검한 체크리스트를 만들어 줍니다.
+        </p>
+        <p>
+          14개 케이스 파일럿 평가에서, 모호한 질문에 대한 답변의 <strong>Actionability</strong>
+          <span style="font-size:13px;color:var(--text-3);"> — 답변을 받고 나서 다음 연구 단계를 실제로 취할 수 있는 정도, 5점 척도 — </span>
+          가 기준 모델 대비 평균 +0.69 향상됐습니다(4.11 → 4.79).
+          임상의·분자생물학자·바이오인포 연구자 등 6가지 전문가 역할로 독립 심사했습니다.
+        </p>
+        <p>
+          이 경험을 BioNexus Nexus Co-Scientist — 특히 <strong>Bioinformatics Agent</strong>,
+          <strong>Domain Expert Agent</strong>, <strong>Publication & Presentation Agent</strong> —
+          에 연결하고 싶습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ────────────────────────────────── -->
+<section class="section section-gray" id="skills">
+  <div class="section-narrow">
+    <div class="section-header">
+      <div class="label"><span class="label-dot"></span>Core Competencies</div>
+      <h2 class="section-title">핵심 역량</h2>
+      <p class="section-body">기술적 전문성과 생명과학 도메인 지식을 함께 보유하고 있습니다.</p>
+    </div>
+    <div class="skills-grid" id="skillsGrid">
+      <div class="skill-card">
+        <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><path d="M12 2a6 6 0 0 1 6 6c0 2.4-1.4 4.5-3.5 5.5L14 20H10l-.5-6.5C7.4 12.5 6 10.4 6 8a6 6 0 0 1 6-6z"/><path d="M10 20h4"/></svg></div>
+        <h3>AI/예측 모형 설계</h3>
+        <p>Classification, Regression, Time-series forecasting 및 앙상블 모델링 기반 예측 시스템 설계</p>
+        <div class="pill-wrap"><span class="pill">Ensemble</span><span class="pill">Forecasting</span><span class="pill">Deep Learning</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg></div>
+        <h3>데이터 분석 및 검증</h3>
+        <p>복합 바이오 데이터 전처리, 통계 검정, 모델 비교 평가 및 민감도 분석 구조화</p>
+        <div class="pill-wrap"><span class="pill">Statistical Testing</span><span class="pill">Validation</span><span class="pill">EDA</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><path d="M12 2v20M2 7c2.5 0 5 2 10 2s7.5-2 10-2M2 17c2.5 0 5-2 10-2s7.5 2 10 2"/></svg></div>
+        <h3>생물정보학 (Bioinfo)</h3>
+        <p>RNA-seq, Microbiome, Pathway analysis 등 오믹스 데이터 기반 분석 파이프라인 구축</p>
+        <div class="pill-wrap"><span class="pill">RNA-seq</span><span class="pill">Microbiome</span><span class="pill">Omics</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>R & Python 분석 역량</h3>
+        <p>R 기반의 통계 분석 및 Python을 활용한 데이터 처리 및 ML 모델 구현 역량</p>
+        <div class="pill-wrap"><span class="pill">R (Advanced)</span><span class="pill">Python</span><span class="pill">Tidyverse</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M9 11V7a3 3 0 0 1 6 0v4"/><circle cx="9" cy="16" r="1" fill="#6B89A8"/><circle cx="15" cy="16" r="1" fill="#6B89A8"/></svg></div>
+        <h3>연구 협업형 LLM (BOA-Lite)</h3>
+        <p>연구 단계를 추정해 단계별 맞춤 문서를 자동 생성하는 agent 설계·평가. 14 cases 파일럿에서 모호한 질문에 대한 Actionability(답변 후 다음 단계 실행 가능성, 5점 척도) +0.69 향상 실측</p>
+        <div class="pill-wrap"><span class="pill">LLM Agent</span><span class="pill">Python</span><span class="pill">Claude Code</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
+        <h3>프로젝트 매니징</h3>
+        <p>국가 연구개발과제(R&D) 관리 및 범부처 감염병 분석 플랫폼 구축 리딩 경험</p>
+        <div class="pill-wrap"><span class="pill">PM</span><span class="pill">Communication</span><span class="pill">Documentation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ──────────────────────────────── -->
+<section class="section section-white" id="projects">
+  <div class="section-narrow">
+    <div class="section-header">
+      <div class="label"><span class="label-dot"></span>Projects</div>
+      <h2 class="section-title">주요 프로젝트</h2>
+      <p class="section-body">직접 설계하고 검증한 AI × 바이오 프로젝트입니다.</p>
+    </div>
+    <div class="projects-grid" id="projectsGrid">
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-tag">Toy Project · LLM Agent</span><span class="proj-arrow">↗</span></div>
+        <h3>BOA-Lite: 연구 단계 추정 기반 연구 보조 Agent</h3>
+        <p>모호한 연구 질문이 들어오면 "지금 어느 단계인지"를 먼저 추정하고, 그 단계(문제 정의·계획·검증)에 맞는 문서를 자동 생성하는 agent. 단계별로 다른 문서를 만들어 주는 구조 덕분에, 임상의·바이오인포 연구자 등 6가지 전문가 역할 심사 기준으로 "답변 후 실제로 다음 단계를 취할 수 있는 정도(Actionability, 5점 척도)"가 기준 대비 평균 +0.69 향상됐습니다.</p>
+        <div class="tech-stack"><span class="tech">Python</span><span class="tech">LLM (kimi-k2.5)</span><span class="tech">Claude Code</span><span class="tech">pptxgenjs</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-tag">National Project · Forecasting · PM</span><span class="proj-arrow">↗</span></div>
+        <h3>감염병 확산 예측 플랫폼 개발</h3>
+        <p>범부처 COVID-19 확진·사망·위중증 시계열 예측 플랫폼 기획·운영 총괄(2021–2024). SVM stacking 등 7개 단일모형 앙상블 비교 설계, 대시보드 구축. SVM stacking WMAPE 확진 0.228·사망 0.11·위중증 0.02. J Global Health 2025 공동제1저자.</p>
+        <div class="tech-stack"><span class="tech">R</span><span class="tech">SVM/앙상블</span><span class="tech">시계열 예측</span><span class="tech">R Shiny</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-tag">Precision Medicine · Deep Learning</span><span class="proj-arrow">↗</span></div>
+        <h3>난소암 항암제 내성 예측 (정밀의료)</h3>
+        <p>TCGA 전사체 데이터 기반 난소암 platinum resistance 예측. DNN + 앙상블 모델 설계 및 비교 분석. 정확도 0.903. IJDMB 2020 공동제1저자.</p>
+        <div class="tech-stack"><span class="tech">Python</span><span class="tech">DNN</span><span class="tech">앙상블</span><span class="tech">Multi-Omics</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-top"><span class="proj-tag">Biomarker Discovery · Microbiome</span><span class="proj-arrow">↗</span></div>
+        <h3>췌장암 조기진단 바이오마커 발굴</h3>
+        <p>혈청 세균 유래 EV 마이크로바이옴 분석으로 췌장암 조기진단 후보 마커 발굴. Propensity Score Matching으로 편향 보정, 마이크로바이옴 특이적 방법론 적용, 민감도 분석으로 PSM 영향 검증. AUC 0.95+. Biology 2021 공동제1저자.</p>
+        <div class="tech-stack"><span class="tech">R</span><span class="tech">PSM</span><span class="tech">Microbiome</span><span class="tech">민감도 분석</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ─── WHY BIONEXUS ──────────────────────────── -->
+<section class="section section-dark" id="why">
+  <div class="section-narrow">
+    <div class="section-header">
+      <div class="label label-light"><span class="label-dot"></span>Why BioNexus</div>
+      <h2 class="section-title section-title-light">BioNexus에서 하고 싶은 것</h2>
+      <p class="section-body section-body-light">Nexus Co-Scientist와 슬라이드 자동화 — 두 방향에 기여하고 싶습니다.</p>
+    </div>
+    <div class="why-grid" id="whyGrid">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3>Co-Scientist 에이전트 기여</h3>
+        <p>Bioinformatics Agent에 오믹스 분석 파이프라인·바이오마커 검증 기준을, Domain Expert Agent에 임상의·마이크로바이옴 등 전문가 관점 심사 구조를 반영하는 역할을 하고 싶습니다. BOA-Lite 파일럿에서 설계한 6가지 전문가 역할 평가 방식이 직접 연결됩니다.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3>연구 단계 기반 구조 실험 확장</h3>
+        <p>BOA-Lite에서 검증한 stage-gated 구조(연구 단계 추정 → 단계별 맞춤 문서 생성)를 Co-Scientist 파이프라인에 통합하고, 14 cases 파일럿 benchmark를 실제 연구 질문으로 확장하는 실험을 계속하고 싶습니다.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3>슬라이드·문서 자동화</h3>
+        <p>Publication &amp; Presentation Agent와 연결해, 연구 결과를 발표 자료로 자동 변환하는 파이프라인을 만들고 싶습니다. 이 포트폴리오 사이트와 슬라이드 덱이 그 시작점입니다 — BioNexus 홈페이지와 슬라이드를 입력으로 agent가 직접 생성한 결과물입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────── -->
+<section class="section section-white" id="contact">
+  <div class="contact-card-wrap">
+    <div class="contact-wrap">
+      <div class="label" style="justify-content:center;"><span class="label-dot"></span>Contact</div>
+      <h2>연구 협업형 LLM 제품에 기여하고 싶습니다</h2>
+      <p>바이오 데이터 분석 경험과 BOA-Lite 토이 프로젝트를 토대로, Nexus Co-Scientist 발전에 기여할 수 있는 한결희입니다.</p>
+      <div class="contact-actions">
+        <a href="mailto:hgh97617@gmail.com" class="btn btn-dark">이메일 보내기</a>
+        <a href="#" class="btn btn-ghost">이력서(PDF) 다운로드</a>
+        <a href="https://github.com" class="btn btn-ghost">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────── -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-brand-dot">
+      <img src="resources/bnl.svg" alt="Logo" style="width: 14px; height: auto;">
+    </div>
+    <p style="font-weight: 700; margin-left: 8px;">BioNexus</p>
+  </div>
+  <p>© 2026 · 한결희 포트폴리오 · Powered by Antigravity AI</p>
+</footer>
+
+<!-- ─── FAB ───────────────────────────────────── -->
+<a href="#contact" class="fab" title="연락하기">✉</a>
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+<script>
+  /* --- Progress bar --- */
+  const bar = document.getElementById('progress');
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  /* --- Active nav link --- */
+  const sections = [...document.querySelectorAll('section[id]')];
+  const navAs = document.querySelectorAll('.nav-links a[data-section]');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY + 80;
+    let curr = '';
+    sections.forEach(s => { if (y >= s.offsetTop) curr = s.id; });
+    navAs.forEach(a => a.classList.toggle('active', a.dataset.section === curr));
+  });
+
+  /* --- Scroll reveal with stagger --- */
+  const revealGroups = [
+    { selector: '.tl-item',   delay: 80 },
+    { selector: '.skill-card', delay: 70 },
+    { selector: '.proj-card',  delay: 70 },
+    { selector: '.why-card',   delay: 80 },
+  ];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const delay = parseFloat(e.target.dataset.delay || 0);
+        setTimeout(() => e.target.classList.add('in'), delay);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealGroups.forEach(({ selector, delay }) => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      el.dataset.delay = i * delay;
+      io.observe(el);
+    });
+  });
+</script>
+</body>
+</html>
