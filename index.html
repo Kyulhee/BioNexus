@@ -84,7 +84,7 @@
     }
     .nav-logo {
       width: 28px; height: 28px;
-      background: var(--primary);
+      background: transparent;
       display: flex; align-items: center; justify-content: center;
     }
     .nav-logo svg { width: 15px; height: 15px; fill: white; }
@@ -658,9 +658,9 @@
   <div class="section-narrow">
     <div class="section-header">
       <div class="label"><span class="label-dot"></span>About Me</div>
-      <h2 class="section-title">저는 이런 사람입니다</h2>
+      <h2 class="section-title">소개 및 이력</h2>
       <p class="section-body">
-        생명과학과 AI가 만나는 교차점에서 실질적인 연구 가속 솔루션을 만들어왔습니다.
+        생명과학과 AI가 만나는 교차점에서 연구해왔습니다.
       </p>
     </div>
     <div class="about-grid">
@@ -697,18 +697,18 @@
           헬스케어·바이오 데이터를 분석하고, 예측모형 결과를 비교·검증해 구조화해온
           <strong>생물정보학 연구자</strong>입니다.
           정밀의료, 감염병 예측, 마이크로바이옴, 단일세포 분석까지
-          다양한 문제 유형에서 이질적 데이터를 비교 가능한 형태로 정리해왔습니다.
+          다양한 유형의 데이터를 다루면서 이질적인 정보를 비교 가능한 형태로 정리하는 작업을 반복해왔습니다.
         </p>
         <div class="story-quote">
-          "모델 정확도보다 결과 차이의 원인을 추적하고, 협업 가능한 형태로 정리하는 것 — 연구실에서 쌓은 이 습관을 연구 협업형 AI로 확장하고 싶습니다."
+          "연구 과정에서 배운 정리와 협업 경험을 바탕으로 연구 협업형 AI 개발에 기여하고 싶습니다."
         </div>
         <p>
           연구 과정에서 LLM을 직접 사용하며 느낀 구조적 한계 — 모호한 질문에도 즉시 답하고, 연구 단계와 맞지 않는 산출물을 내놓는 것 — 를
           출발점으로 <strong>BOA-Lite</strong>를 설계했습니다.
-          연구 질문을 받으면 먼저 "지금 어느 단계인지(문제 정의·계획·검증 진입)"를 추정하고,
-          그 단계에 맞는 문서를 자동 생성하는 구조입니다.
-          예를 들어 Framing 단계라면 연구 질문·범위·성공 기준을 정리한 초안 문서를,
-          Validation 단계라면 검증 진입 전 근거 수준과 리스크를 점검한 체크리스트를 만들어 줍니다.
+          연구 질문을 받으면 먼저 현재 단계(문제 정의·계획·검증)를 추정하고,
+          단계에 맞는 문서를 자동 생성하는 구조입니다.
+          예를 들어 Framing 단계에서는 연구 질문·범위·성공 기준을 정리한 초안 문서를,
+          Validation 단계에서는 검증 진입 전 근거 수준과 리스크를 점검한 체크리스트를 생성합니다.
         </p>
         <p>
           14개 케이스 파일럿 평가에서, 모호한 질문에 대한 답변의 <strong>Actionability</strong>
@@ -718,8 +718,8 @@
         </p>
         <p>
           이 경험을 BioNexus Nexus Co-Scientist — 특히 <strong>Bioinformatics Agent</strong>,
-          <strong>Domain Expert Agent</strong>, <strong>Publication & Presentation Agent</strong> —
-          에 연결하고 싶습니다.
+          <strong>Domain Expert Agent</strong>, <strong>Publication &amp; Presentation Agent</strong> —
+          에 연결하고자 합니다.
         </p>
       </div>
     </div>
@@ -732,31 +732,31 @@
     <div class="section-header">
       <div class="label"><span class="label-dot"></span>Core Competencies</div>
       <h2 class="section-title">핵심 역량</h2>
-      <p class="section-body">기술적 전문성과 생명과학 도메인 지식을 함께 보유하고 있습니다.</p>
+      <p class="section-body">생물정보학 연구와 데이터 분석 경험을 바탕으로 한 핵심 역량입니다.</p>
     </div>
     <div class="skills-grid" id="skillsGrid">
       <div class="skill-card">
         <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><path d="M12 2a6 6 0 0 1 6 6c0 2.4-1.4 4.5-3.5 5.5L14 20H10l-.5-6.5C7.4 12.5 6 10.4 6 8a6 6 0 0 1 6-6z"/><path d="M10 20h4"/></svg></div>
         <h3>AI/예측 모형 설계</h3>
-        <p>Classification, Regression, Time-series forecasting 및 앙상블 모델링 기반 예측 시스템 설계</p>
+        <p>시계열 예측, 분류·회귀, 앙상블 모델링 설계 및 비교 검증</p>
         <div class="pill-wrap"><span class="pill">Ensemble</span><span class="pill">Forecasting</span><span class="pill">Deep Learning</span></div>
       </div>
       <div class="skill-card">
         <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg></div>
         <h3>데이터 분석 및 검증</h3>
-        <p>복합 바이오 데이터 전처리, 통계 검정, 모델 비교 평가 및 민감도 분석 구조화</p>
+        <p>복합 바이오 데이터 전처리, 통계 검정, 민감도 분석 구조화</p>
         <div class="pill-wrap"><span class="pill">Statistical Testing</span><span class="pill">Validation</span><span class="pill">EDA</span></div>
       </div>
       <div class="skill-card">
         <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><path d="M12 2v20M2 7c2.5 0 5 2 10 2s7.5-2 10-2M2 17c2.5 0 5-2 10-2s7.5 2 10 2"/></svg></div>
         <h3>생물정보학 (Bioinfo)</h3>
-        <p>RNA-seq, Microbiome, Pathway analysis 등 오믹스 데이터 기반 분석 파이프라인 구축</p>
+        <p>RNA-seq, 마이크로바이옴, Pathway analysis 등 오믹스 분석 파이프라인</p>
         <div class="pill-wrap"><span class="pill">RNA-seq</span><span class="pill">Microbiome</span><span class="pill">Omics</span></div>
       </div>
       <div class="skill-card">
         <div class="sk-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B89A8" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <h3>R & Python 분석 역량</h3>
-        <p>R 기반의 통계 분석 및 Python을 활용한 데이터 처리 및 ML 모델 구현 역량</p>
+        <h3>R & Python</h3>
+        <p>R 기반 통계 분석, Python 기반 데이터 처리 및 ML 모델 구현</p>
         <div class="pill-wrap"><span class="pill">R (Advanced)</span><span class="pill">Python</span><span class="pill">Tidyverse</span></div>
       </div>
       <div class="skill-card">
@@ -781,31 +781,31 @@
     <div class="section-header">
       <div class="label"><span class="label-dot"></span>Projects</div>
       <h2 class="section-title">주요 프로젝트</h2>
-      <p class="section-body">직접 설계하고 검증한 AI × 바이오 프로젝트입니다.</p>
+      <p class="section-body">수행한 주요 연구 및 개발 프로젝트입니다.</p>
     </div>
     <div class="projects-grid" id="projectsGrid">
       <div class="proj-card">
         <div class="proj-top"><span class="proj-tag">Toy Project · LLM Agent</span><span class="proj-arrow">↗</span></div>
-        <h3>BOA-Lite: 연구 단계 추정 기반 연구 보조 Agent</h3>
-        <p>모호한 연구 질문이 들어오면 "지금 어느 단계인지"를 먼저 추정하고, 그 단계(문제 정의·계획·검증)에 맞는 문서를 자동 생성하는 agent. 단계별로 다른 문서를 만들어 주는 구조 덕분에, 임상의·바이오인포 연구자 등 6가지 전문가 역할 심사 기준으로 "답변 후 실제로 다음 단계를 취할 수 있는 정도(Actionability, 5점 척도)"가 기준 대비 평균 +0.69 향상됐습니다.</p>
+        <h3>BOA-Lite: 연구 단계 기반 연구 보조 Agent</h3>
+        <p>연구 질문의 단계(문제 정의·계획·검증)를 추정해 단계별 맞춤 문서를 자동 생성하는 agent 설계 및 파일럿 평가. 14 cases, 6 전문가 역할 심사 기준 Actionability +0.69 실측.</p>
         <div class="tech-stack"><span class="tech">Python</span><span class="tech">LLM (kimi-k2.5)</span><span class="tech">Claude Code</span><span class="tech">pptxgenjs</span></div>
       </div>
       <div class="proj-card">
         <div class="proj-top"><span class="proj-tag">National Project · Forecasting · PM</span><span class="proj-arrow">↗</span></div>
         <h3>감염병 확산 예측 플랫폼 개발</h3>
-        <p>범부처 COVID-19 확진·사망·위중증 시계열 예측 플랫폼 기획·운영 총괄(2021–2024). SVM stacking 등 7개 단일모형 앙상블 비교 설계, 대시보드 구축. SVM stacking WMAPE 확진 0.228·사망 0.11·위중증 0.02. J Global Health 2025 공동제1저자.</p>
+        <p>범부처 COVID-19 확진·사망·위중증 시계열 예측 플랫폼 기획·운영(2021–2024). 다중 앙상블 모델 비교 설계 및 결과 구조화. J Global Health 2025 공동제1저자.</p>
         <div class="tech-stack"><span class="tech">R</span><span class="tech">SVM/앙상블</span><span class="tech">시계열 예측</span><span class="tech">R Shiny</span></div>
       </div>
       <div class="proj-card">
         <div class="proj-top"><span class="proj-tag">Precision Medicine · Deep Learning</span><span class="proj-arrow">↗</span></div>
-        <h3>난소암 항암제 내성 예측 (정밀의료)</h3>
-        <p>TCGA 전사체 데이터 기반 난소암 platinum resistance 예측. DNN + 앙상블 모델 설계 및 비교 분석. 정확도 0.903. IJDMB 2020 공동제1저자.</p>
+        <h3>난소암 항암제 내성 예측</h3>
+        <p>TCGA 전사체 기반 난소암 platinum resistance 예측 모델 설계 및 비교 검증. IJDMB 2020 공동제1저자.</p>
         <div class="tech-stack"><span class="tech">Python</span><span class="tech">DNN</span><span class="tech">앙상블</span><span class="tech">Multi-Omics</span></div>
       </div>
       <div class="proj-card">
         <div class="proj-top"><span class="proj-tag">Biomarker Discovery · Microbiome</span><span class="proj-arrow">↗</span></div>
         <h3>췌장암 조기진단 바이오마커 발굴</h3>
-        <p>혈청 세균 유래 EV 마이크로바이옴 분석으로 췌장암 조기진단 후보 마커 발굴. Propensity Score Matching으로 편향 보정, 마이크로바이옴 특이적 방법론 적용, 민감도 분석으로 PSM 영향 검증. AUC 0.95+. Biology 2021 공동제1저자.</p>
+        <p>혈청 세균 유래 EV 마이크로바이옴 분석으로 췌장암 조기진단 후보 마커 탐색 및 통계적 검증. Biology 2021 공동제1저자.</p>
         <div class="tech-stack"><span class="tech">R</span><span class="tech">PSM</span><span class="tech">Microbiome</span><span class="tech">민감도 분석</span></div>
       </div>
     </div>
@@ -820,23 +820,23 @@
     <div class="section-header">
       <div class="label label-light"><span class="label-dot"></span>Why BioNexus</div>
       <h2 class="section-title section-title-light">BioNexus에서 하고 싶은 것</h2>
-      <p class="section-body section-body-light">Nexus Co-Scientist와 슬라이드 자동화 — 두 방향에 기여하고 싶습니다.</p>
+      <p class="section-body section-body-light">Nexus Co-Scientist와 슬라이드 자동화, 두 방향에 기여하고자 합니다.</p>
     </div>
     <div class="why-grid" id="whyGrid">
       <div class="why-card">
         <div class="why-num">01</div>
         <h3>Co-Scientist 에이전트 기여</h3>
-        <p>Bioinformatics Agent에 오믹스 분석 파이프라인·바이오마커 검증 기준을, Domain Expert Agent에 임상의·마이크로바이옴 등 전문가 관점 심사 구조를 반영하는 역할을 하고 싶습니다. BOA-Lite 파일럿에서 설계한 6가지 전문가 역할 평가 방식이 직접 연결됩니다.</p>
+        <p>Bioinformatics Agent에는 오믹스 분석·바이오마커 검증 기준을, Domain Expert Agent에는 임상의·마이크로바이옴 등 전문가 관점 심사 구조를 반영하고 싶습니다. BOA-Lite 파일럿에서 6가지 전문가 역할을 직접 설계한 경험이 바로 이 지점과 이어집니다.</p>
       </div>
       <div class="why-card">
         <div class="why-num">02</div>
         <h3>연구 단계 기반 구조 실험 확장</h3>
-        <p>BOA-Lite에서 검증한 stage-gated 구조(연구 단계 추정 → 단계별 맞춤 문서 생성)를 Co-Scientist 파이프라인에 통합하고, 14 cases 파일럿 benchmark를 실제 연구 질문으로 확장하는 실험을 계속하고 싶습니다.</p>
+        <p>BOA-Lite에서 검증한 방식 — 연구 단계를 먼저 추정하고, 그 단계에 맞는 문서를 자동 생성 — 을 Co-Scientist 파이프라인에 통합하고, 파일럿 14 cases를 실제 연구 질문으로 확장하는 실험을 지속하고자 합니다.</p>
       </div>
       <div class="why-card">
         <div class="why-num">03</div>
         <h3>슬라이드·문서 자동화</h3>
-        <p>Publication &amp; Presentation Agent와 연결해, 연구 결과를 발표 자료로 자동 변환하는 파이프라인을 만들고 싶습니다. 이 포트폴리오 사이트와 슬라이드 덱이 그 시작점입니다 — BioNexus 홈페이지와 슬라이드를 입력으로 agent가 직접 생성한 결과물입니다.</p>
+        <p>Publication &amp; Presentation Agent와 연결해, 연구 결과를 발표 자료로 자동 변환하는 파이프라인을 구축하고자 합니다. 이 포트폴리오 사이트와 슬라이드 덱이 그 시작점입니다 — BioNexus 홈페이지와 슬라이드를 입력으로 agent가 직접 생성한 결과물입니다.</p>
       </div>
     </div>
   </div>
@@ -848,7 +848,7 @@
     <div class="contact-wrap">
       <div class="label" style="justify-content:center;"><span class="label-dot"></span>Contact</div>
       <h2>연구 협업형 LLM 제품에 기여하고 싶습니다</h2>
-      <p>바이오 데이터 분석 경험과 BOA-Lite 토이 프로젝트를 토대로, Nexus Co-Scientist 발전에 기여할 수 있는 한결희입니다.</p>
+      <p>바이오 데이터 분석 경험과 BOA-Lite 파일럿을 바탕으로, Nexus Co-Scientist 개발에 기여하고자 합니다.</p>
       <div class="contact-actions">
         <a href="mailto:hgh97617@gmail.com" class="btn btn-dark">이메일 보내기</a>
         <a href="#" class="btn btn-ghost">이력서(PDF) 다운로드</a>
